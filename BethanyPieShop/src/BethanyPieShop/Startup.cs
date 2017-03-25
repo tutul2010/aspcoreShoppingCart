@@ -30,6 +30,7 @@ namespace BethanyPieShop
         public void ConfigureServices(IServiceCollection services)
         {
             //commit for feature 1.1
+            //commit for feature 1.2
             //register custome AppDbContext cls with conn-str in appsettings.json file
             services.AddDbContext<AppDbContext>(options =>
                                         options.UseSqlServer(_configurationRoot.GetConnectionString("DefaultConnection")));

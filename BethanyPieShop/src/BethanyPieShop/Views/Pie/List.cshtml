@@ -1,0 +1,18 @@
+﻿@model PiesListViewModel
+
+<h2>@ViewBag.CurrentCategory</h2>
+
+    @foreach (var pie in Model.Pies)
+    {
+        @*<div>
+                <h2>@pie.Name</h2>
+                <h3>@pie.Price.ToString("c")</h3>
+                <h4>@pie.Category.CategoryName</h4>
+            </div>*@
+
+        @Html.Partial("PieOverviewSummary", pie) //use of Partial view
+    }
+        
+
+
+

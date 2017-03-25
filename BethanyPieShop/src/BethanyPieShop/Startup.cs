@@ -29,11 +29,7 @@ namespace BethanyPieShop
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-           //code changes for feature1.3
-           //more changes feature1.3
-           //commit for merging master of feature1.3
-
-           //chabges of master with feature 1.3
+          
             //register custome AppDbContext cls with conn-str in appsettings.json file
             services.AddDbContext<AppDbContext>(options =>
                                         options.UseSqlServer(_configurationRoot.GetConnectionString("DefaultConnection")));

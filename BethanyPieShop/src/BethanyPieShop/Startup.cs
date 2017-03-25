@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using BethanyPieShop.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace BethanyPieShop
 {
@@ -33,6 +34,9 @@ namespace BethanyPieShop
             //register custome AppDbContext cls with conn-str in appsettings.json file
             services.AddDbContext<AppDbContext>(options =>
                                         options.UseSqlServer(_configurationRoot.GetConnectionString("DefaultConnection")));
+            //register identity roles cls for use
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                                     .AddEntityFrameworkStores<AppDbContext>();
             //register custome Repository cls 
             /*
             services.AddTransient<ICategoryRepository, MockCategoryRepository>();
@@ -60,8 +64,8 @@ namespace BethanyPieShop
             app.UseStatusCodePages();//provide error code(400-500) in browser page
             app.UseStaticFiles();
             app.UseSession();//inject  sesion-state
-
-            //app.UseMvcWithDefaultRoute();// for mvc support
+            app.UseIdentity(); //inject the indentity membership-api for entitycore DB
+            //app.UseMvcWithDefaultRoute();// only for mvc support
             app.UseMvc(routes =>
             {
                 //customize the rouite

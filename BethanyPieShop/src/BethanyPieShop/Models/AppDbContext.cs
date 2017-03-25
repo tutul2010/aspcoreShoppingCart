@@ -1,4 +1,5 @@
 ﻿using BethanyPieShop.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,8 +8,17 @@ using System.Threading.Tasks;
 
 namespace BethanyPieShop.Models
 {
-    //DB access cls
-    public class AppDbContext: DbContext
+
+
+    /// <summary>
+    /// It is a  DB processing cls.It is a mapping or middle-man  between model cls and entityDB.
+    /// We hv use code-first approach
+    /// </summary>
+    /// 
+
+    // public class AppDbContext: DbContext
+    public class AppDbContext : IdentityDbContext<IdentityUser>
+
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

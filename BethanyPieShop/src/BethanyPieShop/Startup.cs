@@ -60,8 +60,17 @@ namespace BethanyPieShop
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             //inject the middleware component
-            app.UseDeveloperExceptionPage();//inject dev-ex-page that provide friendly ex page
-            app.UseStatusCodePages();//provide error code(400-500) in browser page
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();//inject dev-ex-page that provide friendly ex page
+                app.UseStatusCodePages();//provide error code(400-500) in browser 
+            }
+            else
+            {
+                app.UseExceptionHandler("/AppException");
+            }
+
+           
             app.UseStaticFiles();
             app.UseSession();//inject  sesion-state
             app.UseIdentity(); //inject the indentity membership-api for entitycore DB

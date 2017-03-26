@@ -37,25 +37,32 @@ namespace BethanyPieShop.Controllers
         {
             //populateing categorys that bind to menu
             IEnumerable<Pie> pies;
-            string currentCategory = string.Empty;
-            //if category is empty , mk it All pies , it will show to menu 
-            if (string.IsNullOrEmpty(category))
+            try
             {
-                pies = _pieRepository.Pies.OrderBy(p => p.PieId);
-                currentCategory = "All pies";
-            }
-            else
-            {
-                pies = _pieRepository.Pies.Where(p => p.Category.CategoryName == category)
-                   .OrderBy(p => p.PieId);
-                currentCategory = _categoryRepository.Categories.FirstOrDefault(c => c.CategoryName == category).CategoryName;
-            }
+                string currentCategory = string.Empty;
+                //if category is empty , mk it All pies , it will show to menu 
+                if (string.IsNullOrEmpty(category))
+                {
+                    pies = _pieRepository.Pies.OrderBy(p => p.PieId);
+                    currentCategory = "All pies";
+                }
+                else
+                {
+                    pies = _pieRepository.Pies.Where(p => p.Category.CategoryName == category)
+                       .OrderBy(p => p.PieId);
+                    currentCategory = _categoryRepository.Categories.FirstOrDefault(c => c.CategoryName == category).CategoryName;
+                }
 
-            return View(new PiesListViewModel
+                return View(new PiesListViewModel
+                {
+                    Pies = pies,
+                    CurrentCategory = currentCategory
+                });
+            }
+            catch (Exception ex)
             {
-                Pies = pies,
-                CurrentCategory = currentCategory
-            });
+                throw ex;
+            }
         }
 
         public IActionResult Details(int id)

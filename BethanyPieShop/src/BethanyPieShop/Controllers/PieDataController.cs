@@ -25,31 +25,42 @@ namespace BethanysPieShop.Controllers
         [HttpGet]  //api/PieData
         public IEnumerable<PieViewModel> LoadMorePies()
         {
-            IEnumerable<Pie> dbPies = null;
-
-            dbPies = _pieRepository.Pies.OrderBy(p => p.PieId).Take(10);
-
+           
             List<PieViewModel> pies = new List<PieViewModel>();
-
+            try
+            {
+                IEnumerable<Pie> dbPies = null;
+                dbPies = _pieRepository.Pies.OrderBy(p => p.PieId).Take(10);
             foreach (var dbPie in dbPies)
             {
                 pies.Add(MapDbPieToPieViewModel(dbPie));
+            }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             return pies;
         }
         [HttpGet("{Id}")] //api/PieData/2
         public IEnumerable<PieViewModel> LoadPiesbyId(int Id)
         {
+            List<PieViewModel> pies = new List<PieViewModel>();
             IEnumerable<Pie> dbPies = null;
+            try
+            {
 
            // dbPies = _pieRepository.Pies.OrderBy(p => p.PieId).FirstOrDefault(p => p.PieId == Id);
             dbPies = _pieRepository.Pies.Where(c => c.PieId == Id)
                                                 .OrderBy(p => p.Name);
-            List<PieViewModel> pies = new List<PieViewModel>();
-
             foreach (var dbPie in dbPies)
             {
                 pies.Add(MapDbPieToPieViewModel(dbPie));
+            }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             return pies;
         }

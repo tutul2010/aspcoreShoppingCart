@@ -1,4 +1,5 @@
 ﻿using BethanyPieShop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,13 +18,14 @@ namespace BethanyPieShop.Controllers
             _orderRepository = orderRepository;
             _shoppingCart = shoppingCart;
         }
-
+        [Authorize]
         public IActionResult Checkout()
         {
             return View();
         }
         
         [HttpPost]
+        [Authorize]
         public IActionResult Checkout(Order order)
         {
             var items = _shoppingCart.GetShoppingCartItems();

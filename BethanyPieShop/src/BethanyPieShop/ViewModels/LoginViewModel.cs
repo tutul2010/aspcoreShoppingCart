@@ -19,8 +19,8 @@ namespace BethanyPieShop.ViewModels
        // [Required]
         [Display(Name = "Confirm password")]
         [DataType(DataType.Password)]
-        [Microsoft.AspNetCore.Mvc.ModelBinding.BindNever]
-        [ScaffoldColumn(false)]
+        //[Microsoft.AspNetCore.Mvc.ModelBinding.BindNever]
+        //[ScaffoldColumn(false)]
         public string ConfirmPassword { get; set; }
 
         public string ReturnUrl { get; set; }

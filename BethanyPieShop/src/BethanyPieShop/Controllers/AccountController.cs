@@ -70,14 +70,20 @@ namespace BethanyPieShop.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(LoginViewModel loginViewModel)
         {
+            if(!loginViewModel.ConfirmPassword.Equals(loginViewModel.Password))
+              {
+                   ModelState.AddModelError("", "ConfirmPassword or Password should be same.");
+                   return View(loginViewModel);
+              }
             if (ModelState.IsValid)
+           
             {
                 var user = new IdentityUser() { UserName = loginViewModel.UserName };
                 var result = await _userManager.CreateAsync(user, loginViewModel.Password);
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
             }
             return View(loginViewModel);

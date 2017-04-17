@@ -70,7 +70,18 @@ namespace BethanyPieShop.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(LoginViewModel loginViewModel)
         {
-            if(!loginViewModel.ConfirmPassword.Equals(loginViewModel.Password))
+            if (string.IsNullOrEmpty(loginViewModel.Password))
+            {
+                ModelState.AddModelError("", "Passwordshould not be empty.");
+                return View(loginViewModel);
+            }
+           
+                if (string.IsNullOrEmpty(loginViewModel.ConfirmPassword))
+            {
+                ModelState.AddModelError("", "ConfirmPassword should  not be empty.");
+                return View(loginViewModel);
+            }
+            if (!loginViewModel.ConfirmPassword.Equals(loginViewModel.Password))
               {
                    ModelState.AddModelError("", "ConfirmPassword or Password should be same.");
                    return View(loginViewModel);
@@ -84,6 +95,11 @@ namespace BethanyPieShop.Controllers
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Password should be uppercase, lowser case, specials character and number combination, Please change the password accordingly.");
+                    return View(loginViewModel);
                 }
             }
             return View(loginViewModel);
